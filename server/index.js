@@ -9,9 +9,29 @@ import authenticationRoutes from "./routes/AuthenticationRoutes";
 
 mongoose.set("debug", true);
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/authentication-practice");
+///mongoose.connect("mongodb://localhost/authentication-practice");
 
 const app = express();
+
+
+
+app.use(function hello1(request,response,next){
+  response.message = "Hello from hello1";
+  console.log("Hello 1");
+  next();
+});
+app.use(function(request,response,next){
+  console.log(response.message);
+  next();
+});
+app.use(function(request,response,next){
+  console.log("Hello 3");
+  response.send("Hello 3");
+});
+
+
+
+
 
 app.use(bodyParser.json());
 app.use(authenticationRoutes);

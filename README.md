@@ -1,5 +1,6 @@
 # Setup
 * Fork, clone, yarn install, yarn start
+* Windows users, remember to remove the single quotes from package.json
 
 # Database
 * Make sure you are running mongoDB or using Mlab
