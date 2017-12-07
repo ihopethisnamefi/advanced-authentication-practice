@@ -52,3 +52,10 @@ function tokenForUser(user) {
   return jwt.encode({ userId: user.id, iat: timestamp }, process.env.SECRET);
 }
 
+export function getUsers(request, response) {
+  User.find({}).exec()
+  .then(users => {
+      return response.json(users); 
+  });
+}
+

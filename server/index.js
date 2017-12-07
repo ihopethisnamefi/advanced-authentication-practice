@@ -9,7 +9,7 @@ import authenticationRoutes from "./routes/AuthenticationRoutes";
 
 mongoose.set("debug", true);
 mongoose.Promise = global.Promise;
-///mongoose.connect("mongodb://localhost/authentication-practice");
+mongoose.connect("mongodb://localhost/authentication-practice");
 
 const app = express();
 
@@ -26,7 +26,8 @@ app.use(function(request,response,next){
 });
 app.use(function(request,response,next){
   console.log("Hello 3");
-  response.send("Hello 3");
+  //response.send("Hello 3");
+  next();
 });
 
 
@@ -39,6 +40,7 @@ app.use(authenticationRoutes);
 app.use(function authChecker(req, res, next) {
   // implement some logic to determine if you should allow this request
   // pull the token from the request and see if its valid
+  //if the token is present, use that to login and next
   if (true) {
       next();
   } else {
@@ -55,6 +57,15 @@ app.use(authStrategy);
 
 app.get("/api/canigetthis", function (req, res) {
   res.send("You got the data. You are authenticated");
+});
+app.get("/cars", function (req, res) {
+  res.send("Authenticated Cars");
+});
+app.get("/planes", function (req, res) {
+  res.send("Authenticated Planes");
+});
+app.get("/trains", function (req, res) {
+  res.send("Authenticated Trains");
 });
 app.get("/api/secret", function (req, res) {
   res.send(`The current user is ${req.user.username}`);
